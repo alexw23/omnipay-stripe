@@ -365,6 +365,24 @@ class AuthorizeRequest extends AbstractRequest
         return $this->setParameter('capture_method', $value);
     }
 
+     /**
+     * @return mixed
+     */
+    public function getBillingDetails()
+    {
+        return $this->getParameter('billing_details');
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return AbstractRequest provides a fluent interface.
+     */
+    public function setBillingDetails($value)
+    {
+        return $this->setParameter('billing_details', $value);
+    }
+
     /**
      * @inheritdoc
      */
@@ -411,8 +429,12 @@ class AuthorizeRequest extends AbstractRequest
         } elseif ($this->getToken()) {
             $data['payment_method_data'] = [
                 'type' => 'card',
-                'card' => ['token' => $this->getToken()],
+                'card' => ['token' => $this->getToken()]
             ];
+
+            if($billingDetails = $this->getBillingDetails()) {
+                $data['payment_method_data']['billing_details'] => $this->getBillingDetails(),
+            }
         } else {
             // one of cardReference, token, or card is required
             $this->validate('paymentMethod');
