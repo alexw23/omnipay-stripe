@@ -384,6 +384,24 @@ class AuthorizeRequest extends AbstractRequest
     }
 
     /**
+     * @return mixed
+     */
+    public function getShipping()
+    {
+        return $this->getParameter('shipping');
+    }
+    
+    /**
+     * @param string $value
+     *
+     * @return AbstractRequest provides a fluent interface.
+     */
+    public function setShipping($value)
+    {
+        return $this->setParameter('shipping', $value);
+    }
+
+    /**
      * @inheritdoc
      */
     public function getData()
@@ -456,6 +474,10 @@ class AuthorizeRequest extends AbstractRequest
 
         if ($this->getCaptureMethod()) {
             $data['capture_method'] = $this->getCaptureMethod();
+        }
+
+        if ($this->getShipping()) {
+            $data['shipping'] = $this->getShipping();
         }
 
         $data['confirm'] = $this->getConfirm() ? 'true' : 'false';
