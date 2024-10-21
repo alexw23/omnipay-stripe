@@ -433,7 +433,7 @@ class AuthorizeRequest extends AbstractRequest
             ];
 
             if($billingDetails = $this->getBillingDetails()) {
-                $data['payment_method_data']['billing_details'] = $this->getBillingDetails(),
+                $data['payment_method_data']['billing_details'] = $this->getBillingDetails();
             }
         } else {
             // one of cardReference, token, or card is required
